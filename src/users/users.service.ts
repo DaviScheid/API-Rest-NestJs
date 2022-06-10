@@ -35,6 +35,10 @@ export class UsersService {
     return await this.userModel.findOne({"email":email})
   }
 
+  login() {
+    return "Logado"
+  }
+
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }
