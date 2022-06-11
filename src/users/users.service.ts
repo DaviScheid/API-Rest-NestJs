@@ -19,31 +19,40 @@ export class UsersService {
     }
 
     const newUser = new this.userModel(user)
-    const createdUser = await newUser.save()
+    await newUser.save()
     return {msg:"Usuário criado com sucesso!"};
   }
 
   findAll() {
-    return `This action returns all users`;
+    return this.userModel.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(id: string) {
+    return this.userModel.findById(id)
   }
 
   async findByEmail(email: string) {
     return await this.userModel.findOne({"email":email})
   }
 
-  login() {
-    return "Logado"
+  async update(id: string, updateUserDto: UpdateUserDto) {
+
+    if(updateUserDto.password != undefined){
+      updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10)
+    }
+
+    return this.userModel.findByIdAndUpdate({
+      _id:id,
+
+    }, {
+      $set: updateUserDto
+    },
+    {
+      new:true
+    })
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  remove(id: string) {
+    return this.userModel.findByIdAndDelete(id).exec()
   }
 }
