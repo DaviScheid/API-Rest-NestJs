@@ -74,4 +74,4 @@ Nest is [MIT licensed](LICENSE).
 
 ## Description of the project
 
-This project is a REST API whith a simple CRUD and authorization logic using NestJs  
+This project is a REST API with a simple CRUD and authorization logic using NestJs  
